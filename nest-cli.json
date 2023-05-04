@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/charge-data-service/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/charge-data-service/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/charge-data-service",
+  "projects": {
+    "charge-data-service": {
+      "type": "application",
+      "root": "apps/charge-data-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/charge-data-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/charge-data-service/tsconfig.app.json"
+      }
+    },
+    "charge-data": {
+      "type": "application",
+      "root": "apps/charge-data",
+      "entryFile": "main",
+      "sourceRoot": "apps/charge-data/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/charge-data/tsconfig.app.json"
+      }
+    },
+    "dal": {
+      "type": "library",
+      "root": "libs/dal",
+      "entryFile": "index",
+      "sourceRoot": "libs/dal/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/dal/tsconfig.lib.json"
+      }
+    }
+  }
+}
