@@ -1,21 +1,22 @@
-import { ChargeDataServiceRepository, DalService } from '@app/dal';
+import { ChargeDataRepository, DalService } from '@charge-data/dal';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { APIService } from './api.service';
 
 import { ChargeDataService } from './charge-data.service';
 import { ChargeDataTask } from './charge-data.task';
 
-const dalService = new DalService();
-
 @Module({
   imports: [ScheduleModule.forRoot()],
   providers: [
+    APIService,
     ChargeDataService,
     ChargeDataTask,
-    ChargeDataServiceRepository,
+    ChargeDataRepository,
     {
       provide: DalService,
       useFactory: async () => {
+        const dalService = new DalService();
         await dalService.connect();
 
         return dalService;

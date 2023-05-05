@@ -6,7 +6,7 @@ const ChargeDataSchema = new Schema<IChargeData>(
   {
     _id: { type: Schema.Types.String, default: () => randomUUID() },
     statusType: { type: Schema.Types.Mixed },
-    operationInfo: { type: Schema.Types.Mixed },
+    operatorInfo: { type: Schema.Types.Mixed },
     connections: { type: Schema.Types.Mixed },
     addressInfo: { type: Schema.Types.Mixed },
     ocmId: { type: Schema.Types.Number },

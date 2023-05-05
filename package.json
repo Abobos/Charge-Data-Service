@@ -79,7 +79,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/dal(|/.*)$": "<rootDir>/libs/dal/src/$1"
+      "^@charge-data/dal(|/.*)$": "<rootDir>/libs/dal/src/$1"
     }
   }
 }
