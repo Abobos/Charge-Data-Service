@@ -88,7 +88,7 @@ export interface CurrentType {
 }
 
 export interface ChargeData {
-  operationInfo: OperatorInfo;
+  operatorInfo: OperatorInfo;
   statusType: StatusType;
   addressInfo: AddressInfo;
   connections: Connection[];

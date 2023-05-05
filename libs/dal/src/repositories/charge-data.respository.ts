@@ -1,7 +1,7 @@
 import { ChargeDataModel } from './charge-data.schema';
 import { IChargeData } from './types';
 
-export class ChargeDataServiceRepository {
+export class ChargeDataRepository {
   private model = ChargeDataModel;
 
   async updateChargeData(payload: IChargeData[]) {
@@ -25,5 +25,13 @@ export class ChargeDataServiceRepository {
     });
 
     await Promise.all(promises);
+  }
+
+  async findAll() {
+    const data: IChargeData[] = (await this.model.find()).map((doc) =>
+      doc.toObject(),
+    );
+
+    return data;
   }
 }

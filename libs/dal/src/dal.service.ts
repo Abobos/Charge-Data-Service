@@ -30,6 +30,14 @@ export class DalService {
     return this.connection && this.connection.readyState === 1;
   }
 
+  async destroy() {
+    if (process.env.NODE_ENV !== 'test')
+      throw new Error('This operation is only allowed in test mode 😱');
+
+    console.log('deleting db');
+    await mongoose.connection.dropDatabase();
+  }
+
   async disconnect() {
     await mongoose.disconnect();
   }

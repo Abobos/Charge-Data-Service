@@ -1,31 +1,26 @@
-import axios from 'axios';
 import { Injectable, Logger } from '@nestjs/common';
-import { configurations } from './config';
-import { ChargeDataServiceRepository, IChargeData } from '@app/dal';
+import { ChargeDataRepository, IChargeData } from '@app/dal';
+import { APIService } from './api.service';
 
 @Injectable()
 export class ChargeDataService {
   private readonly logger = new Logger(ChargeDataService.name);
 
   constructor(
-    private readonly chargeDataRepository: ChargeDataServiceRepository,
+    private readonly chargeDataRepository: ChargeDataRepository,
+    private readonly apiService: APIService,
   ) {}
 
   async getChargeData() {
     this.logger.log('About to retrieve open charge map API data');
 
     try {
-      const { data } = await axios.get(configurations.url, {
-        timeout: Number(configurations.timeout),
-        headers: {
-          'X-API-Key': configurations.apiKey,
-        },
-      });
+      const data = await this.apiService.openMapAPI();
 
       const mapData = data.map((datum: Record<string, unknown>) => ({
         ocmId: datum.ID,
         addressInfo: datum.AddressInfo,
-        operationInfo: datum.OperatorInfo,
+        operatorInfo: datum.OperatorInfo,
         statusType: datum.StatusType,
         connections: datum.Connections,
         lastChanged: datum.DateLastStatusUpdate,
