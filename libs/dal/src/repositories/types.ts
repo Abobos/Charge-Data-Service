@@ -92,6 +92,8 @@ export interface ChargeData {
   statusType: StatusType;
   addressInfo: AddressInfo;
   connections: Connection[];
+  ocmId: number;
+  lastChanged: Date;
 }
 export interface IChargeData extends ChargeData {
   _id: string;

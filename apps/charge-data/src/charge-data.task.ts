@@ -8,10 +8,10 @@ export class ChargeDataTask {
 
   constructor(private chargeDataService: ChargeDataService) {}
 
-  @Cron('10 * * * * *')
+  @Cron('7 * * * * *')
   async handleCron() {
     this.logger.log('About to call charge data service');
 
-    await this.chargeDataService.getChargeDataAPI();
+    await this.chargeDataService.getChargeData();
   }
 }

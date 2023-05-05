@@ -1,4 +1,4 @@
-import { DalService } from '@app/dal';
+import { ChargeDataServiceRepository, DalService } from '@app/dal';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
@@ -12,6 +12,7 @@ const dalService = new DalService();
   providers: [
     ChargeDataService,
     ChargeDataTask,
+    ChargeDataServiceRepository,
     {
       provide: DalService,
       useFactory: async () => {
