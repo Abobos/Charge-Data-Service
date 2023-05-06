@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ChargeData, ChargeDataRepository } from '@charge-data/dal';
+import { ChargeDataRepository } from '@charge-data/dal';
 import { APIService } from './api.service';
 
 @Injectable()

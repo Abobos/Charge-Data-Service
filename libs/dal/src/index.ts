@@ -1,2 +1,2 @@
 export * from './dal.service';
-export * from './repositories/index';
+export * from './repositories';

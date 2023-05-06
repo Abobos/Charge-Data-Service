@@ -51,17 +51,17 @@ interface DataProviderStatusType {
   Title: string;
 }
 
-interface OperatorInfo {
-  WebsiteURL: any;
-  Comments: any;
-  PhonePrimaryContact: any;
-  PhoneSecondaryContact: any;
-  IsPrivateIndividual: any;
-  AddressInfo: any;
-  BookingURL: any;
-  ContactEmail: any;
-  FaultReportEmail: any;
-  IsRestrictedEdit: any;
+export interface OperatorInfo {
+  WebsiteURL: string;
+  Comments: string;
+  PhonePrimaryContact: string;
+  PhoneSecondaryContact: string;
+  IsPrivateIndividual: boolean;
+  AddressInfo: string;
+  BookingURL: string;
+  ContactEmail: string;
+  FaultReportEmail: string;
+  IsRestrictedEdit: string;
   ID: number;
   Title: string;
 }
@@ -74,7 +74,7 @@ interface UsageType {
   Title: string;
 }
 
-interface StatusType {
+export interface StatusType {
   IsOperational: boolean;
   IsUserSelectable: boolean;
   ID: number;
@@ -184,35 +184,35 @@ interface User2 {
   SyncedSettings: any;
 }
 
-interface AddressInfo {
+export interface AddressInfo {
   ID: number;
   Title: string;
   AddressLine1: string;
-  AddressLine2: any;
+  AddressLine2: string;
   Town: string;
   StateOrProvince: string;
-  Postcode: any;
+  Postcode: string;
   CountryID: number;
   Country: Country;
   Latitude: number;
   Longitude: number;
-  ContactTelephone1: any;
-  ContactTelephone2: any;
-  ContactEmail: any;
-  AccessComments: any;
+  ContactTelephone1: string;
+  ContactTelephone2: string;
+  ContactEmail: string;
+  AccessComments: string;
   RelatedURL: string;
-  Distance: any;
+  Distance: number;
   DistanceUnit: number;
 }
 
-interface Country {
+export interface Country {
   ISOCode: string;
   ContinentCode: string;
   ID: number;
   Title: string;
 }
 
-interface Connection {
+export interface Connection {
   ID: number;
   ConnectionTypeID: number;
   ConnectionType: ConnectionType;
@@ -230,7 +230,7 @@ interface Connection {
   Comments: any;
 }
 
-interface ConnectionType {
+export interface ConnectionType {
   FormalName: string;
   IsDiscontinued: boolean;
   IsObsolete: boolean;
@@ -238,14 +238,14 @@ interface ConnectionType {
   Title: string;
 }
 
-interface Level {
+export interface Level {
   Comments: string;
   IsFastChargeCapable: boolean;
   ID: number;
   Title: string;
 }
 
-interface CurrentType {
+export interface CurrentType {
   Description: string;
   ID: number;
   Title: string;
@@ -259,6 +259,7 @@ export interface ChargeData {
   ocmId: number;
   lastChanged: Date;
 }
+
 export interface IChargeData extends ChargeData {
   _id: string;
 }
