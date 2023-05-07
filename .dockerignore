@@ -1,0 +1,7 @@
+node_modules
+
+.nvmrc
+.prettierrc
+.eslintrc.js
+
+dist
