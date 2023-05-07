@@ -2,11 +2,8 @@ import { ChargeDataRepository, DalService } from '@charge-data/dal';
 
 import { ChargeDataService } from '../src/charge-data.service';
 
-import { data } from './data';
-import { initializeTestModule } from './setup';
-
-// In your test file, import the object and create a copy of it
-const clonedData = JSON.parse(JSON.stringify(data));
+import { data } from './utils/data';
+import { initializeTestModule } from './utils/setup';
 
 let chargeDataService: ChargeDataService;
 let dalService: DalService;

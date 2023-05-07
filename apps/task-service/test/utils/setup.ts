@@ -1,7 +1,8 @@
 import { ChargeDataRepository, DalService } from '@charge-data/dal';
 import { Test, TestingModule } from '@nestjs/testing';
-import { APIService } from '../src/api.service';
-import { ChargeDataService } from '../src/charge-data.service';
+import { configuration } from 'apps/task-service/src/config';
+import { APIService } from '../../src/api.service';
+import { ChargeDataService } from '../../src/charge-data.service';
 import { data } from './data';
 
 class ApiServiceMock {
@@ -24,7 +25,7 @@ export const initializeTestModule = async () => {
         provide: DalService,
         useFactory: async () => {
           const dalService = new DalService();
-          await dalService.connect('mongodb://localhost:27017/ChargeData-test');
+          await dalService.connect(`${configuration.databaseUrl}-test`);
 
           return dalService;
         },
