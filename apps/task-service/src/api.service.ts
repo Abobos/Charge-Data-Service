@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Injectable, Logger } from '@nestjs/common';
-import { configuration } from './config';
+import { configuration } from '../../config';
 import { IOpenMapChargeData } from '@charge-data/dal';
 
 @Injectable()
