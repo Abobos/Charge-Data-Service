@@ -3,8 +3,8 @@ import { ChargeDataRepository } from '@charge-data/dal';
 import { APIService } from './api.service';
 
 @Injectable()
-export class ChargeDataService {
-  private readonly logger = new Logger(ChargeDataService.name);
+export class TaskService {
+  private readonly logger = new Logger(TaskService.name);
 
   constructor(
     private readonly chargeDataRepository: ChargeDataRepository,

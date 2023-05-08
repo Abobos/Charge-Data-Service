@@ -7,6 +7,21 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { join } from 'path';
 import { ChargeDataResolver } from './charge-data.resolver';
 
+const providers = [
+  ChargeDataRepository,
+  {
+    provide: DalService,
+    useFactory: async () => {
+      const dalService = new DalService();
+
+      await dalService.connect();
+
+      return dalService;
+    },
+  },
+  ChargeDataResolver,
+];
+
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -19,18 +34,6 @@ import { ChargeDataResolver } from './charge-data.resolver';
       ),
     }),
   ],
-  providers: [
-    ChargeDataRepository,
-    {
-      provide: DalService,
-      useFactory: async () => {
-        const dalService = new DalService();
-        await dalService.connect();
-
-        return dalService;
-      },
-    },
-    ChargeDataResolver,
-  ],
+  providers,
 })
 export class AppModule {}

@@ -18,8 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@charge-data/dal": ["libs/dal/src"],
-      "@charge-data/dal/*": ["libs/dal/src/*"]
+      "@charge-data/dal": ["libs/dal/src"]
     }
   }
 }
