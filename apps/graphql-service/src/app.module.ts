@@ -32,6 +32,12 @@ const providers = [
         process.cwd(),
         'apps/graphql-service/schema/charge-data-schema.gql',
       ),
+      formatError: (error) => {
+        const graphQLFormattedError = {
+          message: error.message,
+        };
+        return graphQLFormattedError;
+      },
     }),
   ],
   providers,
