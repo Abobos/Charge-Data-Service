@@ -4,9 +4,9 @@ The Charge Data Service is an Application Programming Interface that provides da
 
 ### Implementation Details
 
-#### Pulling of Open Map API Data and Update only there are changes
+#### Pulling of Open Map API Data and Update database only when there are changes
 
-Since there is no dedicated API endpoint or websocket endpoint to subscribe to for updated, The implementation is achieved by implementing a task scheduler that pulls charge data every 10 seconds and checks the DateLastStatusUpdate. If the time is greater than the last time, the data is updated in the database. However, this process does not happen for the first time since the database is empty. This happens only for subsequent calls.
+Since there is no dedicated API endpoint or websocket endpoint to subscribe to for update, The implementation is achieved by implementing a task scheduler that pulls charge data every 10 seconds and checking the `DateLastStatusUpdate` field. If the time of the `DateLastStatusUpdate` field is greater than the last update time, the data is updated in the database. However, this process does not happen for the first time since the database is empty. This happens only for subsequent calls. For the first time, we insert the whole data in the database.
 
 #### Listing the data via an endpoint
 
@@ -16,7 +16,7 @@ The Open Charge Map API provides various types of data including StatusType, Ope
 
 ### Project Structure
 
-Overall, the project is designed to be scalable, maintainable and extensible. The use of a monorepo architecture and shared dependencies in the libs folder ensures that changes can be easily propagated across both services. The task scheduler implementation ensures that the Open Charge Map data is constantly updated, while the graphql endpoint provides an efficient and easy-to-use medium for importing this data.
+Overall, the project is designed to be scalable, maintainable and extensible. The use of a monorepo architecture and shared dependencies in the libs folder ensures that changes can be easily propagated across both services. The task scheduler implementation ensures that the Open Charge Map data is constantly updated, while the graphql endpoint provides an efficient and easy-to-use medium for importing the data.
 
 #### Architecture
 
@@ -30,19 +30,28 @@ In addition, the libs folder is used for implementing shared dependencies betwee
 
 Please refer to the architectural diagram below for a better understanding.
 
-![Architecture](https://res.cloudinary.com/property-pro-lite/image/upload/v1683536785/architecture_aah6ai.png)
+![Architecture](https://res.cloudinary.com/property-pro-lite/image/upload/v1683564277/JCUR.drawio_n7mm4x.png)
 
 ### Development
 
+#### Tools
+
+- Node js
+- Nest js
+- TypeScript
+- Mongodb & Mongoose
+
+### Running the Service
+
 #### Docker
 
-- Install [Docker](https://www.docker.com/) 😬
-- Run `docker-compose up -d`
+- Install [Docker](https://www.docker.com/)
+- Run `docker-compose up -d`. But If you like to see those clumsy logs 😬, RUN `docker-compose up`
 - Open browser and visit `http://localhost:3000/graphql` and rock it
 
 #### Without Docker
 
-- Replace database_url in .env with your corresponding database url and make sure you save it 👌
+- Replace database_url in .env with your corresponding valid database url 👌
 - Run `yarn install` to install project dependencies
 - Run `yarn start:services` to run the services and you are good
 - Open browser and visit `http://localhost:3000/graphql` and rock it
@@ -50,6 +59,8 @@ Please refer to the architectural diagram below for a better understanding.
 #### Test
 
 There are two major tests. One unit tests testing the task service `task.service.spec.ts` that pulls data from Open MAP API and one integration test `graphql.spec.ts` that test the graphql endpoint. Run the command below for test
+
+- Replace database_url in .env with your corresponding valid database url if you have not done so.
 
 ```
 yarn test
@@ -67,6 +78,6 @@ As a side note, please remember to manage your environment variables configurati
 
 ### Improvement Points
 
-- Implementing of Kubernetes Health Checks endpoint for Kubernetes Liveness, Readness and Start Probe
+- Implementing of Kubernetes Health Checks endpoint for Kubernetes Liveness, Readiness and Start Probe
 - Implement Backward Pagination
 - Configure jest to resolve path aliases for `apps` folder
