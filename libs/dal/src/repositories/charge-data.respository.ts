@@ -1,6 +1,6 @@
 import { ChargeDataModel } from './charge-data.schema';
 
-import { ChargeData } from './types';
+import { ChargeData, ChargeDataEntity } from './types';
 
 export class ChargeDataRepository {
   private model = ChargeDataModel;
@@ -28,8 +28,10 @@ export class ChargeDataRepository {
     await Promise.all(promises);
   }
 
-  async findAll() {
-    return this.model.find();
+  async findAll(): Promise<ChargeDataEntity[]> {
+    const results = await this.model.find();
+
+    return this.mapEntities(results);
   }
 
   async insertMany(payload: ChargeData[]) {
@@ -37,19 +39,21 @@ export class ChargeDataRepository {
   }
 
   async getChargeData(first: number, after: string) {
-    let results = await this.model
-      .find({ ...(after && { _id: { $gt: after } }) })
-      .limit(first + 1);
+    const results = await this.model
+      .find({ ...(after && { ocmId: { $lt: Number(after) } }) })
+      .limit(first + 1)
+      .sort({ ocmId: 'desc' });
+
+    let mappedResult = this.mapEntities(results);
 
     const hasNextPage = results.length === first + 1;
+    mappedResult = hasNextPage ? results.slice(0, -1) : results;
 
-    results = hasNextPage ? results.slice(0, -1) : results;
-
-    const edges = results.map(
-      ({ id, statusType, connections, operatorInfo, addressInfo }) => ({
-        cursor: id as string,
+    const edges = mappedResult.map(
+      ({ _id, statusType, connections, operatorInfo, addressInfo, ocmId }) => ({
+        cursor: ocmId.toString(),
         node: {
-          id: id as string,
+          id: _id,
           statusType,
           connections,
           operatorInfo,
@@ -64,6 +68,7 @@ export class ChargeDataRepository {
       edges,
       totalCount,
       pageInfo: {
+        hasPreviousPage: Boolean(after),
         hasNextPage,
       },
     };
@@ -71,5 +76,9 @@ export class ChargeDataRepository {
 
   private async getTotalCount() {
     return this.model.countDocuments();
+  }
+
+  private mapEntities(data: any[]): ChargeDataEntity[] {
+    return data.map((data) => data.toObject());
   }
 }

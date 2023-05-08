@@ -106,6 +106,7 @@ type ChargeDataEdge {
 
 type ChargeDataPageInfo {
   hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
 }
 
 type ChargeDataCollection {

@@ -31,6 +31,7 @@ describe('ChargeDataService', () => {
     const response = await chargeDataRepository.findAll();
 
     for (let i = 0; i < data.length; i += 1) {
+      expect(response[i]._id).toBeDefined();
       expect(response[i].statusType).toStrictEqual(data[i].StatusType);
       expect(response[i].operatorInfo).toStrictEqual(data[i].OperatorInfo);
       expect(response[i].connections).toStrictEqual(data[i].Connections);

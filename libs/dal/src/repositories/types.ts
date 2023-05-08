@@ -57,11 +57,11 @@ export interface OperatorInfo {
   PhonePrimaryContact: string;
   PhoneSecondaryContact: string;
   IsPrivateIndividual: boolean;
-  AddressInfo: string;
+  AddressInfo: AddressInfo;
   BookingURL: string;
   ContactEmail: string;
   FaultReportEmail: string;
-  IsRestrictedEdit: string;
+  IsRestrictedEdit: boolean;
   ID: number;
   Title: string;
 }
@@ -260,6 +260,6 @@ export interface ChargeData {
   lastChanged: Date;
 }
 
-export interface IChargeData extends ChargeData {
+export interface ChargeDataEntity extends ChargeData {
   _id: string;
 }

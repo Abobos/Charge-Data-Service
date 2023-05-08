@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
 import { model, Schema } from 'mongoose';
-import { IChargeData } from './types';
+import { ChargeDataEntity } from './types';
 
-const ChargeDataSchema = new Schema<IChargeData>(
+const ChargeDataSchema = new Schema<ChargeDataEntity>(
   {
     _id: { type: Schema.Types.String, default: () => randomUUID() },
     statusType: { type: Schema.Types.Mixed },
@@ -17,7 +17,7 @@ const ChargeDataSchema = new Schema<IChargeData>(
   },
 );
 
-export const ChargeDataModel = model<IChargeData>(
+export const ChargeDataModel = model<ChargeDataEntity>(
   'ChargeDataDocument',
   ChargeDataSchema,
 );

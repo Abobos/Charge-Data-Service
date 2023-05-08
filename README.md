@@ -1,6 +1,6 @@
 ## Charge-Data-Service
 
-The Charge Data Service is an Application Programming Interface that provides data related to electric vehicle (EV) charging facilities. The API provides information about various aspects of charging facilities such as status, operator information, address information, connections etc.
+The Charge Data Service is an Application Programming Interface that provides data related to electric vehicle (EV) charging facilities. The API provides information about various aspects of charging facilities such as status, operator information, address information, connections.
 
 ### Implementation Details
 
@@ -38,14 +38,14 @@ Please refer to the architectural diagram below for a better understanding.
 
 - Install [Docker](https://www.docker.com/) 😬
 - Run `docker-compose up -d`
-- Open browser and visit `http://localhost:4000/graphql` and rock it
+- Open browser and visit `http://localhost:3000/graphql` and rock it
 
 #### Without Docker
 
 - Replace database_url in .env with your corresponding database url and make sure you save it 👌
 - Run `yarn install` to install project dependencies
 - Run `yarn start:services` to run the services and you are good
-- Open browser and visit `http://localhost:4000/graphql` and rock it
+- Open browser and visit `http://localhost:3000/graphql` and rock it
 
 #### Test
 
@@ -70,4 +70,3 @@ As a side note, please remember to manage your environment variables configurati
 - Implementing of Kubernetes Health Checks endpoint for Kubernetes Liveness, Readness and Start Probe
 - Implement Backward Pagination
 - Configure jest to resolve path aliases for `apps` folder
-- Save the location(latitude, longitude) from Open Map API

@@ -1,8 +1,8 @@
 import { ChargeDataRepository, DalService } from '@charge-data/dal';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-
 import { data } from './utils/data';
+
 import { initializeTestingModule } from './utils/setup';
 
 describe('Graphql Service (e2e)', () => {
