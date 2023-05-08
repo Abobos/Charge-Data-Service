@@ -38,7 +38,7 @@ export class ChargeDataRepository {
     await this.model.insertMany(payload);
   }
 
-  async getChargeData(first: number, after: string) {
+  async retrieveChargeData(first: number, after: string) {
     const results = await this.model
       .find({ ...(after && { ocmId: { $lt: Number(after) } }) })
       .limit(first + 1)
@@ -46,8 +46,9 @@ export class ChargeDataRepository {
 
     let mappedResult = this.mapEntities(results);
 
-    const hasNextPage = results.length === first + 1;
-    mappedResult = hasNextPage ? results.slice(0, -1) : results;
+    const hasNextPage = mappedResult.length === first + 1;
+    const hasPreviousPage = Boolean(after);
+    mappedResult = hasNextPage ? mappedResult.slice(0, -1) : mappedResult;
 
     const edges = mappedResult.map(
       ({ _id, statusType, connections, operatorInfo, addressInfo, ocmId }) => ({
@@ -68,7 +69,7 @@ export class ChargeDataRepository {
       edges,
       totalCount,
       pageInfo: {
-        hasPreviousPage: Boolean(after),
+        hasPreviousPage,
         hasNextPage,
       },
     };

@@ -1,22 +1,32 @@
-import { ChargeData, ChargeDataCollection } from './models/charge-data.model';
-import { Resolver, Query, Args, Int } from '@nestjs/graphql';
+import { ChargeDataCollection } from './models/charge-data.model';
+import { Resolver, Query, Args } from '@nestjs/graphql';
 import { ChargeDataRepository } from '@charge-data/dal';
+import { Logger } from '@nestjs/common';
+import { GetChargeDataArgs } from './dtos/get-charge.dto';
+import { GraphQLError } from 'graphql';
 
-@Resolver(() => ChargeData)
+@Resolver(() => ChargeDataCollection)
 export class ChargeDataResolver {
+  private readonly logger = new Logger(ChargeDataResolver.name);
   constructor(private chargeRespository: ChargeDataRepository) {}
 
   @Query(() => ChargeDataCollection, { name: 'GetChargeData' })
   async getChargeData(
-    @Args({ name: 'first', type: () => Int, defaultValue: 10 })
-    first: number,
-    @Args({ name: 'after', nullable: true }) after: string,
+    @Args() query: GetChargeDataArgs,
   ): Promise<ChargeDataCollection> {
-    const response = (await this.chargeRespository.getChargeData(
-      first,
-      after,
-    )) as ChargeDataCollection;
+    try {
+      const { first, after } = query;
 
-    return response;
+      const response = (await this.chargeRespository.retrieveChargeData(
+        first,
+        after,
+      )) as ChargeDataCollection;
+
+      return response;
+    } catch (error) {
+      this.logger.error(error.message, error.stack);
+
+      throw new GraphQLError('Something went wrong!');
+    }
   }
 }
