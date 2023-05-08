@@ -1,19 +1,16 @@
-import * as dotenv from 'dotenv';
 import { Connection, ConnectOptions } from 'mongoose';
 import * as mongoose from 'mongoose';
-
-dotenv.config();
+import { configuration } from '../../../apps/config';
 
 export class DalService {
   connection: Connection;
 
   async connect(
-    url: string = process.env.database_url,
+    url: string = configuration.databaseUrl,
     config: ConnectOptions = {},
   ) {
     const baseConfig: ConnectOptions = {
-      maxPoolSize: 700,
-      minPoolSize: process.env.NODE_ENV === 'production' ? 200 : 10,
+      maxPoolSize: 10,
     };
 
     const instance = await mongoose.connect(url, {

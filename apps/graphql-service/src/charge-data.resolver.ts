@@ -8,10 +8,14 @@ export class ChargeDataResolver {
 
   @Query(() => ChargeDataCollection, { name: 'GetChargeData' })
   async getChargeData(
-    @Args({ name: 'first', type: () => Int, defaultValue: 10 }) first: number,
+    @Args({ name: 'first', type: () => Int, defaultValue: 10 })
+    first: number,
     @Args({ name: 'after', nullable: true }) after: string,
-  ) {
-    const response = await this.chargeRespository.getChargeData(first, after);
+  ): Promise<ChargeDataCollection> {
+    const response = (await this.chargeRespository.getChargeData(
+      first,
+      after,
+    )) as ChargeDataCollection;
 
     return response;
   }

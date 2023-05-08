@@ -7,6 +7,7 @@ interface IEdgeType<T> {
 }
 
 interface IPageInfo {
+  hasPreviousPage: boolean;
   hasNextPage: boolean;
 }
 
@@ -30,6 +31,9 @@ export function Paginated<T>(classRef: Type<T>): Type<IPaginatedType<T>> {
   abstract class PageInfo {
     @Field()
     hasNextPage: boolean;
+
+    @Field()
+    hasPreviousPage: boolean;
   }
 
   @ObjectType({ isAbstract: true })

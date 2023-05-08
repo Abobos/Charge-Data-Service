@@ -3,15 +3,15 @@ import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { APIService } from './api.service';
 
-import { ChargeDataService } from './charge-data.service';
-import { ChargeDataTask } from './charge-data.task';
+import { TaskService } from './task.service';
+import { Scheduler } from './scheduler';
 
 @Module({
   imports: [ScheduleModule.forRoot()],
   providers: [
     APIService,
-    ChargeDataService,
-    ChargeDataTask,
+    TaskService,
+    Scheduler,
     ChargeDataRepository,
     {
       provide: DalService,
@@ -24,4 +24,4 @@ import { ChargeDataTask } from './charge-data.task';
     },
   ],
 })
-export class ChargeDataModule {}
+export class TaskModule {}

@@ -1,29 +1,29 @@
 import { ChargeDataRepository, DalService } from '@charge-data/dal';
 
-import { ChargeDataService } from '../src/charge-data.service';
+import { TaskService } from '../src/task.service';
 
 import { data } from './utils/data';
 import { initializeTestModule } from './utils/setup';
 
-let chargeDataService: ChargeDataService;
+let chargeDataService: TaskService;
 let dalService: DalService;
 let chargeDataRepository: ChargeDataRepository;
 
 beforeAll(async () => {
   const module = await initializeTestModule();
 
-  chargeDataService = module.get<ChargeDataService>(ChargeDataService);
+  chargeDataService = module.get<TaskService>(TaskService);
   dalService = module.get<DalService>(DalService);
   chargeDataRepository = module.get<ChargeDataRepository>(ChargeDataRepository);
 });
 
+beforeEach(async () => {
+  await dalService.destroy();
+});
+
 describe('ChargeDataService', () => {
   it('should be defined', () => {
-    expect(ChargeDataService).toBeDefined();
-  });
-
-  beforeEach(async () => {
-    await dalService.destroy();
+    expect(TaskService).toBeDefined();
   });
 
   it('should retrieve open charge data and insert into the database', async () => {
@@ -31,6 +31,7 @@ describe('ChargeDataService', () => {
     const response = await chargeDataRepository.findAll();
 
     for (let i = 0; i < data.length; i += 1) {
+      expect(response[i]._id).toBeDefined();
       expect(response[i].statusType).toStrictEqual(data[i].StatusType);
       expect(response[i].operatorInfo).toStrictEqual(data[i].OperatorInfo);
       expect(response[i].connections).toStrictEqual(data[i].Connections);
