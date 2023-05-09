@@ -1,0 +1,40 @@
+import { Connection, ConnectOptions } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { configuration } from '../../../apps/config';
+
+export class DalService {
+  connection: Connection;
+
+  async connect(
+    url: string = configuration.databaseUrl,
+    config: ConnectOptions = {},
+  ) {
+    const baseConfig: ConnectOptions = {
+      maxPoolSize: 10,
+    };
+
+    const instance = await mongoose.connect(url, {
+      ...baseConfig,
+      ...config,
+    });
+
+    this.connection = instance.connection;
+
+    return this.connection;
+  }
+
+  isConnected(): boolean {
+    return this.connection && this.connection.readyState === 1;
+  }
+
+  async destroy() {
+    if (process.env.NODE_ENV !== 'test')
+      throw new Error('This operation is only allowed in test mode 😱');
+
+    await mongoose.connection.dropDatabase();
+  }
+
+  async disconnect() {
+    await mongoose.disconnect();
+  }
+}
